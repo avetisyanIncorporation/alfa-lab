@@ -1,6 +1,6 @@
 package lab.alfa.task.threads.prime.fork_join;
 
-import lab.alfa.task.threads.prime.manager.PrimeNumbersManagerAbstract;
+import lab.alfa.task.threads.prime.PrimeNumbersManagerAbstract;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.ForkJoinPool;

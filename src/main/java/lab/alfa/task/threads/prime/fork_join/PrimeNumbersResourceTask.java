@@ -1,7 +1,7 @@
 package lab.alfa.task.threads.prime.fork_join;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 import java.util.concurrent.RecursiveTask;
 
 import static org.apache.commons.math3.primes.Primes.nextPrime;
@@ -30,7 +30,7 @@ public class PrimeNumbersResourceTask extends RecursiveTask<List<Integer>> {
 
     @Override
     protected List<Integer> compute() {
-        var primeNumbers = new Stack<Integer>();
+        var primeNumbers = new ArrayList<Integer>(endRange);
         if (endRange - startRange < sequentialThreshold) {
             computeNextAndAddTo(primeNumbers);
         } else {

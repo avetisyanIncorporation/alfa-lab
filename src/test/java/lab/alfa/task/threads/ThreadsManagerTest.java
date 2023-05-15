@@ -1,6 +1,6 @@
 package lab.alfa.task.threads;
 
-import lab.alfa.task.threads.prime.manager.PrimeNumbersManagerAbstract;
+import lab.alfa.task.threads.prime.PrimeNumbersManagerAbstract;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

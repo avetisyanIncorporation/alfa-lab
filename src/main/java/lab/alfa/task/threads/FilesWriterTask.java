@@ -1,6 +1,6 @@
 package lab.alfa.task.threads;
 
-import lab.alfa.task.threads.prime.manager.PrimeNumbersManagerAbstract;
+import lab.alfa.task.threads.prime.PrimeNumbersManagerAbstract;
 import lab.alfa.task.threads.resource.Resource;
 
 import java.util.concurrent.Callable;

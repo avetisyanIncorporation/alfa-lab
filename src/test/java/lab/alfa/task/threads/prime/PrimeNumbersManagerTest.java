@@ -1,6 +1,5 @@
-package lab.alfa.task.threads.prime.manager;
+package lab.alfa.task.threads.prime;
 
-import lab.alfa.task.threads.prime.atomic.PrimeNumbersBank;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,6 +21,10 @@ class PrimeNumbersManagerTest {
     @Autowired
     @Qualifier("withExecutor")
     private PrimeNumbersManagerAbstract managerWithExecutor;
+
+    @Autowired
+    @Qualifier("withBank")
+    private PrimeNumbersManagerAbstract managerWithBank;
 
     @Test
     void shouldGetNextPrimeViaApachePrimes() {
@@ -75,10 +78,10 @@ class PrimeNumbersManagerTest {
 
     @Test
     void shouldGetAllPrimesUntil110ViaResourceBank() {
-        var pnm = new PrimeNumbersBank(110);
+        managerWithBank.init(110);
         var i = 0;
-        while (pnm.hasNext()) {
-            pnm.getNext();
+        while (managerWithBank.hasNext()) {
+            managerWithBank.getNext();
             i++;
         }
         assertEquals(29, i);

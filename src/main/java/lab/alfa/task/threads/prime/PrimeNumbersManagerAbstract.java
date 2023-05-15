@@ -1,4 +1,4 @@
-package lab.alfa.task.threads.prime.manager;
+package lab.alfa.task.threads.prime;
 
 import java.util.List;
 
@@ -25,7 +25,9 @@ public abstract class PrimeNumbersManagerAbstract {
         return currentIndex < primes.size();
     }
 
-    public abstract void init(int numbersLimit, int threadsCount);
+    public void init(int numbersLimit) {    }
+
+    public void init(int numbersLimit, int threadsCount) {    }
 
     protected void setPrimes(List<Integer> primes) {
         resetCurrentIndex();

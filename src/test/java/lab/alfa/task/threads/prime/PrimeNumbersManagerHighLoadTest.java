@@ -1,6 +1,5 @@
-package lab.alfa.task.threads.prime.manager;
+package lab.alfa.task.threads.prime;
 
-import lab.alfa.task.threads.prime.atomic.PrimeNumbersBank;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +26,10 @@ public class PrimeNumbersManagerHighLoadTest {
     @Qualifier("withExecutor")
     private PrimeNumbersManagerAbstract managerWithExecutor;
 
+    @Autowired
+    @Qualifier("withBank")
+    private PrimeNumbersManagerAbstract managerWithBank;
+
     @Test
     void shouldCreateResourceAndComputeViaForkJoin() {
         var c = System.currentTimeMillis();
@@ -51,13 +54,13 @@ public class PrimeNumbersManagerHighLoadTest {
         assertEquals(7, managerWithExecutor.getNext());
     }
 
-//    @Test
+    @Test
     @Disabled("Take too much time")
     void shouldCreateResourceAndComputeViaResourceBank() {
         var c = System.currentTimeMillis();
-        var pnm = new PrimeNumbersBank(NUMBERS_LIMIT);
-        while (pnm.hasNext()) {
-            pnm.getNext();
+        managerWithBank.init(NUMBERS_LIMIT);
+        while (managerWithBank.hasNext()) {
+            managerWithBank.getNext();
         }
         System.out.println("bank: " + (System.currentTimeMillis() - c));
     }
