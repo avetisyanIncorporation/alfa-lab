@@ -1,0 +1,61 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="create_patient_table" author="pargev">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="PATIENT"/>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE TABLE PATIENT (
+                 ID BIGINT PRIMARY KEY,
+                 FIRST_NAME VARCHAR(100) NOT NULL,
+                 LAST_NAME VARCHAR(100) NOT NULL,
+                 DATE_OF_BIRTH DATE NOT NULL,
+                 GENDER SMALLINT NOT NULL,
+                 ADDRESS VARCHAR(100) NOT NULL,
+                 ADDRESS_TYPE SMALLINT NOT NULL,
+                 CONTACT VARCHAR(100) NOT NULL,
+                 CONTACT_TYPE SMALLINT NOT NULL,
+                 POLICY_NUMBER VARCHAR(20) NOT NULL UNIQUE,
+                 SNILS VARCHAR(30) UNIQUE
+            );
+            CREATE SEQUENCE IF NOT EXISTS PATIENT_ID_SEQ as bigint
+                INCREMENT BY 1
+                START WITH 1;
+        </sql>
+    </changeSet>
+
+    <!-- Создание таблицы "Документ" -->
+    <changeSet id="create_document_table" author="pargev">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="DOCUMENT"/>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE TABLE DOCUMENT (
+                  ID BIGINT PRIMARY KEY,
+                  DOCUMENT_TYPE SMALLINT NOT NULL,
+                  DOCUMENT_NUMBER VARCHAR(50) NOT NULL,
+                  DATE_OF_ISSUE DATE NOT NULL,
+                  EXPIRY_DATE DATE NOT NULL,
+                  ISSUER_NAME VARCHAR(100) NOT NULL,
+                  IS_ACTIVE BOOLEAN NOT NULL DEFAULT FALSE,
+                  PATIENT_ID BIGINT NOT NULL,
+                  UNIQUE(DOCUMENT_TYPE, DOCUMENT_NUMBER),
+                  CONSTRAINT DOCUMENT_PATIENT_FK FOREIGN KEY (PATIENT_ID) REFERENCES PATIENT(ID)
+            );
+            CREATE SEQUENCE IF NOT EXISTS DOCUMENT_ID_SEQ AS bigint
+                INCREMENT BY 1
+                START WITH 1;
+            CREATE INDEX DOCUMENT_NUMBER_INDEX ON DOCUMENT(DOCUMENT_NUMBER);
+            CREATE INDEX DOCUMENT_PATIENT_ID_INDEX ON DOCUMENT(PATIENT_ID);
+            CREATE INDEX DOCUMENT_IS_ACTIVE_INDEX ON DOCUMENT(IS_ACTIVE);
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
