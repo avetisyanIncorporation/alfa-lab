@@ -5,7 +5,6 @@ import java.util.List;
 /**
  * @author Pargev A. created on 03.05.2023
  */
-//@Scope(Prototo)
 public abstract class PrimeNumbersManagerAbstract {
 
     private int currentIndex;
